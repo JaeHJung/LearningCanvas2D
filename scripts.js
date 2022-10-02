@@ -21,7 +21,7 @@ function onResize() {
 	if (window.devicePixelRatio > 1) {
 		canvas.width = canvas.clientWidth * 2;
 		canvas.height = canvas.clientHeight * 2;
-		ctx.scale(2, 2);
+		ctx.scale(1);
 	} else {
 		canvas.width = width;
 		canvas.height = height;
@@ -111,27 +111,36 @@ function rotateZ3D(theta) {
 		let vertex = vertices[i];
 		let x = vertex[0];
 		let y = vertex[1];
+
 		vertex[0] = x * cosTheta - y * sinTheta;
 		vertex[1] = y * cosTheta + x * sinTheta;
 	}
 }
+let XCORD = 0;
+let YCORD = 0;
 
 function rotateX3D(theta) {
 	let sinTheta = Math.sin(theta);
 	let cosTheta = Math.cos(theta);
-
+	XCORD = theta;
+	let minZ = Infinity;
 	for (let i = 0; i < vertices.length; i++) {
 		let vertex = vertices[i];
 		let y = vertex[1];
 		let z = vertex[2];
+
 		vertex[1] = y * cosTheta - z * sinTheta;
 		vertex[2] = z * cosTheta + y * sinTheta;
+		minZ = Math.min(minZ, vertex[2]);
 	}
+
+	return minZ;
 }
 
 function rotateY3D(theta) {
 	let sinTheta = Math.sin(theta);
 	let cosTheta = Math.cos(theta);
+	YCORD = theta;
 
 	for (let i = 0; i < vertices.length; i++) {
 		let vertex = vertices[i];
@@ -154,7 +163,7 @@ function clearCanvas() {
 function faceIsVisible(face) {
 	for (let i = 0; i < face.length; i++) {
 		let vertex = vertices[face[i]];
-		console.log(vertex[2], deepestZ);
+		/* console.log(vertex[2], deepestZ); */
 		if (vertex[2] === deepestZ) {
 			return false;
 		}
@@ -163,11 +172,14 @@ function faceIsVisible(face) {
 }
 
 let angle = 0;
-const fps = 120;
+const fps = 60;
 let now;
 let then = Date.now();
 const interval = 1000 / fps;
 let delta;
+const SPEED_X = 0.05; // rps
+const SPEED_Y = 0.15; // rps
+const SPEED_Z = 0.1; // rps
 function draw() {
 	requestAnimationFrame(draw);
 
@@ -178,13 +190,35 @@ function draw() {
 		then = now - (delta % interval);
 
 		clearCanvas();
+		let theta = delta * 0.001 * SPEED_Z * Math.PI * 2;
+		rotateZ3D(theta);
+		theta = delta * 0.001 * SPEED_Y * Math.PI * 2;
+		rotateY3D(theta);
+		theta = delta * 0.001 * SPEED_X * Math.PI * 2;
+		deepestZ = rotateX3D(theta);
 		for (let i = 0; i < faces.length; i++) {
 			if (faceIsVisible(faces[i])) {
 				drawFace(faces[i], faceColors[i]);
 			}
 		}
-		drawVert();
-		drawEdge();
+		/* drawVert(); */
+		/* drawEdge(); */
+		drawText();
+	}
+}
+
+function drawText() {
+	ctx.fillStyle = "hsla(211, 100%, 50%, 1)";
+	const startingY = 1 - canvas.height / 8;
+	const startingX = canvas.width / 8;
+	const lineheight = 20;
+	const textTemplate = `X theta = ${XCORD}\nY theta = ${YCORD}\nMouseX = ${mouseX} PmouseX = ${pMouseX}\nMouseY = ${mouseY} PmouseY = ${pMouseY}`;
+
+	let lines = textTemplate.split("\n");
+	ctx.font = "bold 20px Arial";
+
+	for (let j = 0; j < lines.length; j++) {
+		ctx.fillText(lines[j], startingX, startingY + j * lineheight);
 	}
 }
 
@@ -216,9 +250,9 @@ window.addEventListener("mouseup", function (e) {
 		isMouseDown = false;
 	}
 });
-
-rotateZ3D(100);
+rotateZ3D(30);
+/* rotateZ3D(100);
 rotateY3D(100);
-deepestZ = rotateX3D(100);
+deepestZ = rotateX3D(100); */
 
 draw();
