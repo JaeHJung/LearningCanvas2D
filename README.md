@@ -17,5 +17,5 @@ Back face culling
 
 https://jaehjung.github.io/LearningCanvas2D/
 
-# My GIF
+# Spin
 ![](https://github.com/JaeHJung/LearningCanvas2D/blob/main/spin.gif)
