@@ -18,7 +18,7 @@ Plotting 3D cords to 2D space
 
 Drawing Vertices, Edges and Faces
 
-Rotation Formula [](https://unix4lyfe.org/rotation/)
+[Rotation Formula ](https://unix4lyfe.org/rotation/)
 
 # Spin
 ![](https://github.com/JaeHJung/LearningCanvas2D/blob/main/spin.gif)
