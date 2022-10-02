@@ -1,6 +1,6 @@
 # LearningCanvas
 
-This is my project to learn Canvas2D by implementing 3D cuboid
+This is my project to learn Canvas2D by implementing a 3D cuboid
 
 Referencing Khan Academy's article
 
