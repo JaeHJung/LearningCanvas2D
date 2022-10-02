@@ -16,3 +16,6 @@ Rotation along the axis
 Back face culling
 
 https://jaehjung.github.io/LearningCanvas2D/
+
+# My GIF
+![](https://github.com/JaeHJung/LearningCanvas2D/blob/main/spin.gif)
