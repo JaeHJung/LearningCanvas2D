@@ -8,5 +8,17 @@ https://www.khanacademy.org/computing/computer-programming/programming-games-vis
 
 https://jaehjung.github.io/LearningCanvas2D/
 
+# Stuff I've learned so far
+
+Canvas2D context api
+
+Learning about 3D rendering
+
+Plotting 3D cords to 2D space
+
+Drawing Vertices, Edges and Faces
+
+Rotation Formula [](https://unix4lyfe.org/rotation/)
+
 # Spin
 ![](https://github.com/JaeHJung/LearningCanvas2D/blob/main/spin.gif)
