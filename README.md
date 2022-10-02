@@ -18,6 +18,8 @@ Plotting 3D cords to 2D space
 
 Drawing Vertices, Edges and Faces
 
+Face Culling
+
 [Rotation Formula ](https://unix4lyfe.org/rotation/)
 
 # Spin
